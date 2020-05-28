@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="myViewModel"
+            type="unhas.ac.id.crudtodolist.SubscriberViewModel" />
+    </data>
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -15,6 +20,7 @@
         android:layout_margin="15dp"
         android:layout_marginBottom="5dp"
         android:ems="10"
+        android:text="@={myViewModel.inputName}"
         android:hint="Subscribe's name"
         android:inputType="textPersonName"
         android:textStyle="bold" />
@@ -24,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
         android:layout_marginTop="5dp"
+        android:text="@={myViewModel.inputEmail}"
         android:ems="10"
         android:hint="Subscribe's email"
         android:inputType="textPersonName"
@@ -39,7 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button"
+            android:text="@={myViewModel.saveOrUpdateButtonText}"
+            android:onClick="@{()->myViewModel.saveOrUpdate()}"
             android:textSize="18sp"
             android:textStyle="bold"/>
 
@@ -48,7 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button"
+            android:text="@={myViewModel.clearAllOrDeleteButtonText}"
+            android:onClick="@{()->myViewModel.clearAllOrDelete()}"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -65,3 +74,4 @@
         android:layout_margin="5dp"
         />
 </LinearLayout>
+</layout>

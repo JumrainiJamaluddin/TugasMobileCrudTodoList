@@ -2,7 +2,7 @@ package unhas.ac.id.crudtodolist.db
 
 class SubscriberRepository(private val dao : SubscriberDAO) {
 
-    val subscriber = dao.getAllSubscribers()
+    val subscribers = dao.getAllSubscribers()
 
     suspend fun insert(subscriber: Subscriber){
         dao.insertSubscriber(subscriber)
