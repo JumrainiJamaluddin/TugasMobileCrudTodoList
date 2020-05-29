@@ -1,5 +1,6 @@
 package unhas.ac.id.crudtodolist
 
+import android.util.Patterns
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
@@ -10,6 +11,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import unhas.ac.id.crudtodolist.db.Subscriber
 import unhas.ac.id.crudtodolist.db.SubscriberRepository
+import java.util.regex.Pattern
 
 class SubscriberViewModel(private val repository: SubscriberRepository) : ViewModel(), Observable{
 
@@ -37,16 +39,25 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
     }
 
     fun saveOrUpdate(){
-        if(isUpdateOrDelete){
-            subscriberToUpdateOrDelete.name = inputName.value!!
-            subscriberToUpdateOrDelete.email = inputEmail.value!!
-            update(subscriberToUpdateOrDelete)
+
+        if(inputName.value==null) {
+            statusMessage.value = Event("Please enter your agenda or your name ")
+        }else if(inputEmail.value==null) {
+            statusMessage.value = Event("Please enter your email")
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail.value!!).matches()){
+            statusMessage.value = Event("Please enter a correct email address")
+        }else{
+            if(isUpdateOrDelete){
+                subscriberToUpdateOrDelete.name = inputName.value!!
+                subscriberToUpdateOrDelete.email = inputEmail.value!!
+                update(subscriberToUpdateOrDelete)
+            }
+            val name = inputName.value!!
+            val email = inputEmail.value!!
+            insert(Subscriber(0,name,email))
+            inputName.value = null
+            inputEmail.value = null
         }
-        val name = inputName.value!!
-        val email = inputEmail.value!!
-        insert(Subscriber(0,name,email))
-        inputName.value = null
-        inputEmail.value = null
     }
     fun clearAllOrDelete(){
         if(isUpdateOrDelete){
