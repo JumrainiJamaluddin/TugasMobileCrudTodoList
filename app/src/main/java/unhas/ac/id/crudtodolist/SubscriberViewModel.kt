@@ -29,8 +29,8 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
     }
 
     fun saveOrUpdate(){
-        val name: String = inputName.value!!
-        val email:String = inputEmail.value!!
+        val name = inputName.value!!
+        val email = inputEmail.value!!
         insert(Subscriber(0,name,email))
         inputName.value = null
         inputEmail.value = null
@@ -39,19 +39,19 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
         clearAll()
     }
 
-    fun insert(subscriber: Subscriber) : Job = viewModelScope.launch {
+    fun insert(subscriber: Subscriber) = viewModelScope.launch {
             repository.insert(subscriber)
         }
 
-    fun update(subscriber: Subscriber): Job = viewModelScope.launch {
+    fun update(subscriber: Subscriber) = viewModelScope.launch {
         repository.update(subscriber)
     }
 
-    fun delete(subscriber: Subscriber): Job = viewModelScope.launch {
+    fun delete(subscriber: Subscriber) = viewModelScope.launch {
         repository.delete(subscriber)
     }
 
-    fun clearAll(): Job = viewModelScope.launch {
+    fun clearAll() = viewModelScope.launch {
         repository.deleteAll()
     }
 
